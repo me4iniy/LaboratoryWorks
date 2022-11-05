@@ -28,7 +28,7 @@ namespace LaboratoryWorks
                 string userInput = Console.ReadLine();
 
                 if (userInput == "q")
-                    return;
+                    exit = true;
 
                 if (!IsRealNumberInStr(userInput))
                 {
@@ -36,38 +36,37 @@ namespace LaboratoryWorks
                     continue;
                 }
 
-                if (IsDoubleInStr(userInput))
+                if (IsDoubleAsStr(userInput))
                 {
                     if (double.Parse(userInput) == lastInput)
                         exit = true;
                 }
                 else
                 {
-                    if (int.Parse(userInput) > char.MaxValue || (char)int.Parse(userInput) < char.MinValue)
+                    if (int.Parse(userInput) > char.MaxValue || int.Parse(userInput) < char.MinValue)
                         Console.WriteLine("Данное число не может быть выведенно в виде символа юникода");
                     else
                         Console.WriteLine((char)int.Parse(userInput));
-
                 }
                 lastInput = double.Parse(userInput);
             }
         }
         private static bool IsRealNumberInStr(string number)
         {
-            int posIndex = 0;
+            int positionIndex = 0;
             int pointCounter = 0;
             
-            if (number[0] == '-' && number.Length > 1)
+            if (number[0] == '-' && number.Length > 2)
             {
                 if (!char.IsDigit(number[0 + 1]))
                     return false;
 
-                posIndex += 2;
+                positionIndex += 2;
             }
 
-            for (; posIndex < number.Length; posIndex++)
-                if (!char.IsDigit(number[posIndex]))
-                    if (number[posIndex] == ',')
+            for (; positionIndex < number.Length; positionIndex++)
+                if (!char.IsDigit(number[positionIndex]))
+                    if ((number[positionIndex] == ',') && (positionIndex != 0) && ((positionIndex + 1) < number.Length))
                         pointCounter++;
                     else
                         return false;
@@ -78,7 +77,7 @@ namespace LaboratoryWorks
             return true;
         }
         
-        private static bool IsDoubleInStr(string number)
+        private static bool IsDoubleAsStr(string number)
         {
             for (int i = 0; i < number.Length; i++)
                 if (number[i] == ',')
