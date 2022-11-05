@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LaboratoryWorks
 {
-    public static class LabWorkNumb1Task1
+    public static class LabWorkNumb5Task1
     {
         /*
         Пользователь вводит число. Если это целочисленное число (int.TryParse(...)), 
@@ -21,7 +21,7 @@ namespace LaboratoryWorks
         {
             bool exit = false;
 
-            double lastInput = double.NaN;
+            float lastInput = float.NaN;
 
             while (!exit)
             {
@@ -48,7 +48,7 @@ namespace LaboratoryWorks
                     else
                         Console.WriteLine((char)int.Parse(userInput));
                 }
-                lastInput = double.Parse(userInput);
+                lastInput = float.Parse(userInput);
             }
         }
         private static bool IsRealNumberInStr(string number)

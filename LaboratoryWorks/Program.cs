@@ -6,7 +6,7 @@ namespace LaboratoryWorks
     {
         public static void Main()
         {
-            LabWorkNumb1Task1.PrintProcesedInput();
+            LabWorkNumb5Task1.PrintProcesedInput();
         }
     }
 }
