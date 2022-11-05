@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace LabWorks
+namespace LaboratoryWorks
 {
     public static class Program
     {
         public static void Main()
         {
-            Console.WriteLine(23213);
+            LabWorkNumb1Task1.PrintProcesedInput();
         }
     }
 }
