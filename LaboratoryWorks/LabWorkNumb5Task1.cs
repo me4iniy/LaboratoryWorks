@@ -21,25 +21,29 @@ namespace LaboratoryWorks
         {
             bool exit = false;
 
-            float lastInput = float.NaN;
+            string lastInput = string.Empty;
 
             while (!exit)
             {
                 string userInput = Console.ReadLine();
 
+                bool userNumberIsDouble;
+
                 if (userInput == "q")
                     exit = true;
 
-                if (!IsRealNumberInStr(userInput))
+                if ((userInput == string.Empty) || (!IsStrNumberCorrect(userInput, out userNumberIsDouble)))
                 {
                     Console.WriteLine($"Некорректный ввод");
                     continue;
                 }
 
-                if (IsDoubleAsStr(userInput))
+                if (userNumberIsDouble)
                 {
-                    if (double.Parse(userInput) == lastInput)
+                    if (lastInput != string.Empty && double.Parse(userInput) == double.Parse(lastInput))
                         exit = true;
+                    else
+                        lastInput = string.Empty;
                 }
                 else
                 {
@@ -48,42 +52,34 @@ namespace LaboratoryWorks
                     else
                         Console.WriteLine((char)int.Parse(userInput));
                 }
-                lastInput = float.Parse(userInput);
+                lastInput = userInput;
             }
         }
-        private static bool IsRealNumberInStr(string number)
+        private static bool IsStrNumberCorrect(string strNumber, out bool isDouble)
         {
             int positionIndex = 0;
-            int pointCounter = 0;
-            
-            if (number[0] == '-' && number.Length > 2)
+
+            isDouble = false;
+
+            if (strNumber[0] == '-' && strNumber.Length > 1)
             {
-                if (!char.IsDigit(number[0 + 1]))
+                if (!char.IsDigit(strNumber[0 + 1]))
                     return false;
 
                 positionIndex += 2;
             }
 
-            for (; positionIndex < number.Length; positionIndex++)
-                if (!char.IsDigit(number[positionIndex]))
-                    if ((number[positionIndex] == ',') && (positionIndex != 0) && ((positionIndex + 1) < number.Length))
-                        pointCounter++;
+            for (; positionIndex < strNumber.Length; positionIndex++)
+                if (!char.IsDigit(strNumber[positionIndex]))
+                    if ((strNumber[positionIndex] == ',') && (positionIndex != 0) && ((positionIndex + 1) < strNumber.Length) && !isDouble)
+                        isDouble = true;
                     else
                         return false;
 
-            if (pointCounter > 1)
-                return false;
-
-            return true;
-        }
-        
-        private static bool IsDoubleAsStr(string number)
-        {
-            for (int i = 0; i < number.Length; i++)
-                if (number[i] == ',')
-                    return true;
-
-            return false;
+            if (isDouble)
+                return double.TryParse(strNumber, out _);
+            else
+                return int.TryParse(strNumber, out _);
         }
     }
 }
