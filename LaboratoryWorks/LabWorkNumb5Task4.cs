@@ -17,6 +17,9 @@ namespace LaboratoryWorks
 
         Вывести для сравнения оригинальный массив, который не должен был поменяться, и результирующий массив.
         */
+        public static void PrintProcesedInput()
+        {
 
+        }
     }
 }
