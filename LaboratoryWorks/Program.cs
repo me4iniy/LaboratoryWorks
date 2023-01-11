@@ -6,7 +6,7 @@ namespace LaboratoryWorks
     {
         public static void Main()
         {
-        
+
         }
     }
 }
